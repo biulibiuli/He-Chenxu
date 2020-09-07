@@ -70,15 +70,10 @@ static int cmd_x(char *args) {
     }
 	return 0;
 }
-/*static int cmd_p(char *args) {
-	uint32_t num ;
-	bool suc;
-	num = expr (args,&suc);
-	if (suc)
-		printf ("0x%x:\t%d\n",num,num);
-	else assert (0);
+static int cmd_p(char *args) {
+	
 	return 0;
-}*/
+}
 static struct {
 	char *name;
 	char *description;
@@ -90,7 +85,7 @@ static struct {
 	{"si","Executing in a single step",cmd_si},
     {"info","print register state",cmd_info},
     { "x", "print memory", cmd_x}, 
-
+{"p","get the value of expression",cmd_p},
 	/* TODO: Add more commands */
 
 };
