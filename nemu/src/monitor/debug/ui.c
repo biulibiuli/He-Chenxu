@@ -68,7 +68,6 @@ static int cmd_x(char *args) {
         printf("0x%08x \n", swaddr_read ( start_add, 4));
         start_add += 4;
     }
-    printf("\n");
 	return 0;
 }
 
