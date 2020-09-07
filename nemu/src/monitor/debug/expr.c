@@ -6,12 +6,15 @@
 #include <sys/types.h>
 #include <regex.h>
 
-enum {
-	NOTYPE = 256, EQ
+
+	enum {
+	NOTYPE = 256, EQ , NEQ , AND , OR , MINUS , POINTOR , NUMBER , HNUMBER , REGISTER , MARK
+};
+
 
 	/* TODO: Add more token types */
 
-};
+
 
 static struct rule {
 	char *regex;
