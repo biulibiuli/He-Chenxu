@@ -19,7 +19,10 @@
 static struct rule {
 	char *regex;
 	int token_type;
+	int priority;
 } rules[] = {
+	{"\\b[0-9]+\\b", NUMBER, 0},				
+	{"\\b0[xX][0-9a-fA-F]+\\b",HNUMBER,0},	
 
 	/* TODO: Add more rules.
 	 * Pay attention to the precedence level of different rules.
