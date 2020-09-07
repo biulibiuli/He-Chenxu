@@ -46,6 +46,18 @@ static int cmd_si(char *args){
 	return 0;
 }
 
+static int cmd_info(char *args){
+	int i;
+	if (args[0] == 'r') {
+		for (i=R_EAX;i<=R_EDI;i++){
+			printf ("%s\t0x%08x\n",regsl[i],reg_l(i));
+ 		}
+	}
+	else assert (0);
+	return 0;
+}
+
+
 static struct {
 	char *name;
 	char *description;
@@ -55,7 +67,7 @@ static struct {
 	{ "c", "Continue the execution of the program", cmd_c },
 	{ "q", "Exit NEMU", cmd_q },
 	{"si","Executing in a single step",cmd_si},
-
+    {"info r","print register state",cmd_info},
 	/* TODO: Add more commands */
 
 };
