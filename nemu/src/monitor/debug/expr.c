@@ -21,9 +21,12 @@ static struct rule {
 	int token_type;
 	int priority;
 } rules[] = {
-	{"\\b[0-9]+\\b", NUMBER, 0},				
-	{"\\b0[xX][0-9a-fA-F]+\\b",HNUMBER,0},	
-
+	{"\\b[0-9]+\\b", NUMBER, 0},				//10
+	{"\\b0[xX][0-9a-fA-F]+\\b",HNUMBER,0},	//16
+	{"!=",NEQ,3},						// not equal
+	{"!",'!',6},						// not
+	{"*",'*',5},						// mul
+	{"/",'/',5},						// div
 	/* TODO: Add more rules.
 	 * Pay attention to the precedence level of different rules.
 	 */
