@@ -25,7 +25,7 @@ static struct rule {
 	{"\\b0[xX][0-9a-fA-F]+\\b",HNUMBER,0},	//16
 	{"!=",NEQ,3},						// not equal
 	{"!",'!',6},						// not
-	{"*",'*',5},						// mul
+	{"\\*",'*',5},						// mul
 	{"/",'/',5},						// div
 	/* TODO: Add more rules.
 	 * Pay attention to the precedence level of different rules.
