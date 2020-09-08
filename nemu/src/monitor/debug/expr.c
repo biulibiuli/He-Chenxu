@@ -126,14 +126,22 @@ static bool make_token(char *e) {
 	return true;
 }
 
-	/*	if(i == NR_REGEX) {
-			printf("no match at position %d\n%s\n%*.s^\n", position, e, position, "");
-			return false;
+bool check_parentheses (int l,int r)
+{
+	int i;
+	if (tokens[l].type == '(' && tokens[r].type ==')')
+	{
+		int lc = 0, rc = 0;
+		for (i = l + 1; i < r; i ++)
+		{
+			if (tokens[i].type == '(')lc ++;
+			if (tokens[i].type == ')')rc ++;
+			if (rc > lc)return false;
 		}
+		if (lc == rc)return true;
 	}
-
-	return true; 
-}*/
+	return false;
+}
 
 uint32_t expr(char *e, bool *success) {
 	if(!make_token(e)) {
