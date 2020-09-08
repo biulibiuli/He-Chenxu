@@ -39,8 +39,8 @@ static struct rule {
 	{" +",	NOTYPE},				// spaces
 	{"\\+", '+'},					// plus
 	{"==", EQ},		// equal
-	{"\\b0[xX][0-9a-fA-F]+\\b",HNUMBER,0},		// 16 number
-	{"\\$[a-zA-Z]+",REGISTER,0},				// register
+	{"\\$[a-zA-Z]+",REGISTER,0},	// register
+	{"\\b[a-zA-Z_0-9]+" , MARK , 0}		// mark			
 	/* TODO: Add more rules.
 	 * Pay attention to the precedence level of different rules.
 	 */
@@ -70,6 +70,7 @@ void init_regex() {
 typedef struct token {
 	int type;
 	char str[32];
+	int priority;
 } Token;
 
 Token tokens[32];
@@ -88,6 +89,7 @@ static bool make_token(char *e) {
 			if(regexec(&re[i], e + position, 1, &pmatch, 0) == 0 && pmatch.rm_so == 0) {
 				char *substr_start = e + position;
 				int substr_len = pmatch.rm_eo;
+				char *tmp = e + position + 1;
 
 				Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s", i, rules[i].regex, position, substr_len, substr_len, substr_start);
 				position += substr_len;
@@ -97,22 +99,41 @@ static bool make_token(char *e) {
 				 * of tokens, some extra actions should be performed.
 				 */
 
-				switch(rules[i].token_type) {
-					default: panic("please implement me");
+			switch(rules[i].token_type) {
+					case NOTYPE: break;
+					case REGISTER:
+						tokens[nr_token].type = rules[i].token_type;
+						tokens[nr_token].priority = rules[i].priority;
+						strncpy (tokens[nr_token].str,tmp,substr_len-1);
+						tokens [nr_token].str[substr_len-1]='\0';
+						nr_token ++;
+						break;
+					default:
+						tokens[nr_token].type = rules[i].token_type;
+						tokens[nr_token].priority = rules[i].priority;
+						strncpy (tokens[nr_token].str,substr_start,substr_len);
+						tokens[nr_token].str[substr_len]='\0';
+						nr_token ++;
 				}
-
 				break;
 			}
 		}
-
 		if(i == NR_REGEX) {
+			printf("no match at position %d\n%s\n%*.s^\n", position, e, position, "");
+			return false;
+		}
+	}
+	return true;
+}
+
+	/*	if(i == NR_REGEX) {
 			printf("no match at position %d\n%s\n%*.s^\n", position, e, position, "");
 			return false;
 		}
 	}
 
 	return true; 
-}
+}*/
 
 uint32_t expr(char *e, bool *success) {
 	if(!make_token(e)) {
