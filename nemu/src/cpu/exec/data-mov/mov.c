@@ -9,7 +9,7 @@
 #undef DATA_BYTE
 
 #define DATA_BYTE 4
-#include "mov-template.h"
+#include "mov-template.h"//three times
 #undef DATA_BYTE
 
 /* for instruction encoding overloading */
