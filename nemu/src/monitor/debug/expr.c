@@ -27,13 +27,21 @@ static struct rule {
 	{"!",'!',6},						// not
 	{"\\*",'*',5},						// mul
 	{"/",'/',5},						// div
-	/* TODO: Add more rules.
-	 * Pay attention to the precedence level of different rules.
-	 */
-
+    {"	+",NOTYPE,0},					// tabs
+	{" +",NOTYPE,0},					// spaces
+	{"\\+",'+',4},						// plus
+	{"-",'-',4},						// sub
+	{"==", EQ,3},						// equal
+	{"&&",AND,2},						// and
+	{"\\|\\|",OR,1},						// or
+	{"\\(",'(',7},                        // left bracket
+	{"\\)",')',7},                        // right brack
 	{" +",	NOTYPE},				// spaces
 	{"\\+", '+'},					// plus
 	{"==", EQ}						// equal
+	/* TODO: Add more rules.
+	 * Pay attention to the precedence level of different rules.
+	 */
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
