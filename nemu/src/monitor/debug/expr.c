@@ -126,21 +126,40 @@ static bool make_token(char *e) {
 	return true;
 }
 
-bool check_parentheses (int l,int r)
-{
+bool check_parentheses (int l,int r){
 	int i;
-	if (tokens[l].type == '(' && tokens[r].type ==')')
-	{
-		int lc = 0, rc = 0;
-		for (i = l + 1; i < r; i ++)
-		{
-			if (tokens[i].type == '(')lc ++;
-			if (tokens[i].type == ')')rc ++;
-			if (rc > lc)return false;
-		}
-		if (lc == rc)return true;
+	if (tokens[l].type == '(' && tokens[r].type ==')'){
+			int lc = 0, rc = 0;
+			for (i = l + 1; i < r; i ++)	{
+				if (tokens[i].type == '(')lc ++;
+				if (tokens[i].type == ')')rc ++;
+				if (rc > lc)return false;
+			}
+			if (lc == rc)return true;
 	}
-	return false;
+		return false;
+}
+int dominant_operator (int l,int r)
+{
+	int i,j;
+	int min_priority = 10;
+	int oper = l;
+	for (i = l; i <= r;i ++)
+	{
+		if (tokens[i].type == NUMBER || tokens[i].type == HNUMBER || tokens[i].type == REGISTER || tokens[i].type == MARK)
+			continue;
+		int cnt = 0;
+		bool key = true;
+		for (j = i - 1; j >= l ;j --)
+		{
+			if (tokens[j].type == '(' && !cnt){key = false;break;}
+			if (tokens[j].type == '(')cnt --;
+			if (tokens[j].type == ')')cnt ++;
+		}
+		if (!key)continue;
+		if (tokens[i].priority <= min_priority){min_priority = tokens[i].priority;oper = i;}
+ 	}
+	return oper;
 }
 
 uint32_t expr(char *e, bool *success) {
