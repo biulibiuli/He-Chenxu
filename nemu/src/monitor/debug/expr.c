@@ -38,7 +38,9 @@ static struct rule {
 	{"\\)",')',7},                        // right brack
 	{" +",	NOTYPE},				// spaces
 	{"\\+", '+'},					// plus
-	{"==", EQ}						// equal
+	{"==", EQ},		// equal
+	{"\\b0[xX][0-9a-fA-F]+\\b",HNUMBER,0},		// 16 number
+	{"\\$[a-zA-Z]+",REGISTER,0},				// register
 	/* TODO: Add more rules.
 	 * Pay attention to the precedence level of different rules.
 	 */
