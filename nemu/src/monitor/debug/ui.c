@@ -79,6 +79,11 @@ static int cmd_p(char *args) {
 	else assert (0);
 	return 0;
 }
+
+static int cmd_w(char *args){
+
+	return 0;
+}
 static struct {
 	char *name;
 	char *description;
@@ -91,6 +96,7 @@ static struct {
     {"info","print register state",cmd_info},
     { "x", "print memory", cmd_x}, 
 {"p","get the value of expression",cmd_p},
+{"w", "stop  the program when the result of the expression has changed.", cmd_w},
 	/* TODO: Add more commands */
 
 };
