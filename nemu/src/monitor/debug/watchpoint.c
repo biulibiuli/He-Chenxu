@@ -68,4 +68,6 @@ void delete_wp(int num)
 	f = &wp_pool[num];
 	free_wp (f);
 }
-
+void info_wp(){
+	return;
+}
