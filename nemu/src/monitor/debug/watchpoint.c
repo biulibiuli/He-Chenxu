@@ -63,10 +63,20 @@ void free_wp (WP *wp)
 }
 
 
-void info_wp(){
-	return;
+void delete_wp(int num)
+{
+	WP *f;
+	f = &wp_pool[num];
+	free_wp (f);
 }
-
-void delete_wp(int num){
-	return;
+void info_wp()
+{
+	WP *f;
+	f=head;
+    if(f == NULL) printf("No Watchpoint!\n");
+	while (f!=NULL)
+	{
+		printf ("Watchpoint %d: %s = %d\n", f->NO, f->expr, f->val);
+		f = f->next;
+	}
 }
