@@ -62,12 +62,11 @@ void free_wp (WP *wp)
 	wp->expr[0] = '\0';
 }
 
-void delete_wp(int num)
-{
-	WP *f;
-	f = &wp_pool[num];
-	free_wp (f);
-}
+
 void info_wp(){
+	return;
+}
+
+void delete_wp(int num){
 	return;
 }
