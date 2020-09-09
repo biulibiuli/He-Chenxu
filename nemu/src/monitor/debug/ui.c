@@ -81,9 +81,19 @@ static int cmd_p(char *args) {
 }
 
 static int cmd_w(char *args){
-
+WP *f;
+	bool suc;
+	f = new_wp();
+	printf ("Add Watchpoint %d: %s\n",f->NO,args);
+	f->val = expr (args,&suc);
+	strcpy (f->expr,args);
+	if (!suc)Assert (1,"wrong\n");
+	printf ("Value:%d\n",f->val);
 	return 0;
-}
+}//tianjiajianshidian
+
+
+
 static struct {
 	char *name;
 	char *description;
