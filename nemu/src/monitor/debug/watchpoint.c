@@ -31,6 +31,8 @@ WP* new_wp(){
 		}
 	return f;
 }
+
+
 void free_wp (WP *wp)
 {
 	WP *f,*p;
@@ -40,6 +42,7 @@ void free_wp (WP *wp)
 		while (p->next!=NULL)p=p->next;
 		p->next = wp;
 	}
+
 	f = head;
 	if (head == NULL)assert (0);
 	if (head->NO == wp->NO)
@@ -58,6 +61,16 @@ void free_wp (WP *wp)
 	wp->b = 0;
 	wp->expr[0] = '\0';
 }
+
+void delete_wp(int num)
+{
+	WP *f;
+	f = &wp_pool[num];
+	free_wp (f);
+}
+
+
+
 /* TODO: Implement the functionality of watchpoint */
 
 

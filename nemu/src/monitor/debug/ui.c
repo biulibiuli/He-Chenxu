@@ -92,6 +92,12 @@ WP *f;
 	return 0;
 }//tianjiajianshidian
 
+static int cmd_d(char *args){
+	int num;
+	sscanf (args,"%d",&num);
+	delete_wp (num);
+	return 0;
+}
 
 
 static struct {
@@ -107,6 +113,7 @@ static struct {
     { "x", "print memory", cmd_x}, 
 {"p","get the value of expression",cmd_p},
 {"w", "stop  the program when the result of the expression has changed.", cmd_w},
+{"d", "delete the  watchpoint!", cmd_d},
 	/* TODO: Add more commands */
 
 };
