@@ -17,6 +17,7 @@
 
 
 #include "con-trans/call.h"
+
 #include "logic/and.h"
 #include "logic/or.h"
 #include "logic/not.h"
