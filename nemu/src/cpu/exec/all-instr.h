@@ -33,3 +33,4 @@
 #include "misc/misc.h"
 
 #include "special/special.h"
+#include "logic/test.h"
