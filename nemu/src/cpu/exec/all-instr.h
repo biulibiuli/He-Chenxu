@@ -35,3 +35,4 @@
 
 #include "special/special.h"
 #include "logic/test.h"
+#include "arith/cmp.h"
