@@ -43,3 +43,4 @@
 #include "con-trans/jbe.h"
 #include "con-trans/leave.h"
 #include "logic/setne.h"
+#include "arith/add.h"
