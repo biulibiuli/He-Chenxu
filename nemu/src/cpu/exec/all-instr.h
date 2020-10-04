@@ -34,6 +34,9 @@
 #include "con-trans/jne.h"
 #include "con-trans/jle.h"
 #include "con-trans/jg.h"
+#include "con-trans/js.h"
+
+
 
 #include "logic/and.h"
 #include "logic/or.h"
