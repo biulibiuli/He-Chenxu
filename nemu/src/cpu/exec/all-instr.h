@@ -35,6 +35,7 @@
 #include "con-trans/jle.h"
 #include "con-trans/jg.h"
 #include "con-trans/js.h"
+#include "con-trans/jns.h"
 
 
 
