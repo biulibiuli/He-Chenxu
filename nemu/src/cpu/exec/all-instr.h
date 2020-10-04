@@ -32,6 +32,7 @@
 #include "con-trans/leave.h"
 #include "con-trans/jne.h"
 #include "con-trans/jle.h"
+#include "con-trans/jg.h"
 
 #include "logic/and.h"
 #include "logic/or.h"
