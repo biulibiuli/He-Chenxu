@@ -8,6 +8,9 @@
 #include "data-mov/push.h"
 #include "data-mov/pop.h"
 #include "data-mov/xchg.h"
+#include "data-mov/movzx.h"
+#include "data-mov/movsx.h"
+
 
 #include "arith/dec.h"
 #include "arith/inc.h"
@@ -30,7 +33,6 @@
 #include "con-trans/ret.h"
 #include "con-trans/jmp.h"
 #include "con-trans/jbe.h"
-
 #include "con-trans/jne.h"
 #include "con-trans/jle.h"
 #include "con-trans/jg.h"
@@ -50,7 +52,7 @@
 #include "logic/shrd.h"
 #include "logic/test.h"
 #include "logic/setne.h"
-
+#include "logic/sete.h"
 
 
 #include "string/rep.h"
