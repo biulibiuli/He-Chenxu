@@ -30,7 +30,7 @@
 #include "con-trans/ret.h"
 #include "con-trans/jmp.h"
 #include "con-trans/jbe.h"
-#include "con-trans/leave.h"
+
 #include "con-trans/jne.h"
 #include "con-trans/jle.h"
 #include "con-trans/jg.h"
@@ -38,7 +38,7 @@
 #include "con-trans/jns.h"
 #include "con-trans/jge.h"
 #include "con-trans/ja.h"
-
+#include "con-trans/jl.h"
 
 #include "logic/and.h"
 #include "logic/or.h"
@@ -57,8 +57,10 @@
 #include "string/movs.h"
 #include "string/stos.h"
 #include "string/scas.h"
+#include "string/lods.h"
 
 #include "misc/misc.h"
 
 #include "special/special.h"
+
 
