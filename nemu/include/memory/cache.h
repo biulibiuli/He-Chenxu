@@ -1,26 +1,36 @@
 #ifndef __CACHE_H__
-#define __CACHE_H__
+#define __CACHE_H_
 
-#define CACHE_BLOCK_SIZE_B 6
-#define CACHE_WAY_SIZE_B 3
-#define CACHE_SET_SIZE_B 7
-#define CACHE_BLOCK_SIZE (1 << CACHE_BLOCK_SIZE_B)
-#define CACHE_WAY_SIZE (1 << CACHE_WAY_SIZE_B)
-#define CACHE_SET_SIZE (1 << CACHE_SET_SIZE_B)
+#define CACHE_BLOCK_SIZE 64 //64b
+#define CACHE_SIZE 64*1024 //64kb
+#define WAY_8 8 //8-way set associative
 
-uint64_t MTIME;
+#define CACHE2_BLOCK_SIZE 64 //64b
+#define CACHE2_SIZE 1024*1024*4 //4MB
+#define WAY_16 16 //16-way set associative
 
-typedef struct
-{
-    bool valid;
-    uint32_t tag;
-    uint8_t data[CACHE_BLOCK_SIZE];
+//uint64_t MEMORY_TIME;
+
+typedef struct {
+	bool valid; //valid bit
+	int tag;
+	uint8_t data[CACHE_BLOCK_SIZE];
 } Cache;
 
-Cache cache[CACHE_WAY_SIZE * CACHE_SET_SIZE];
+typedef struct {
+	bool valid,dirty; //valid and dirty bit
+	int tag;
+	uint8_t data[CACHE2_BLOCK_SIZE];;
+} Cache2;
 
-void cache_init();
-uint32_t cache_read(hwaddr_t addr);
+Cache cache[CACHE_SIZE/CACHE_BLOCK_SIZE];
+Cache2 cache2[CACHE2_SIZE/CACHE2_BLOCK_SIZE];
+
+void init_cache();
+int cache_read(hwaddr_t addr);
 void cache_write(hwaddr_t addr, size_t len, uint32_t data);
+//void addMemoryTime(uint32_t t);
+int cache2_read(hwaddr_t addr);
+void cache2_write(hwaddr_t addr, size_t len, uint32_t data);
 
 #endif

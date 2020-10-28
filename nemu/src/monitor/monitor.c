@@ -1,4 +1,5 @@
 #include "nemu.h"
+#include "memory/cache.h"
 
 #define ENTRY_START 0x100000
 
@@ -10,6 +11,7 @@ void load_elf_tables(int, char *[]);
 void init_regex();
 void init_wp_pool();
 void init_ddr3();
+void init_cache();
 
 FILE *log_fp = NULL;
 
@@ -74,6 +76,11 @@ static void load_entry() {
 	fclose(fp);
 }
 
+static void init_CR0() {
+	cpu.cr0.protect_enable = 0;
+	cpu.cr0.paging = 0;
+}
+
 void restart() {
 	/* Perform some initialization to restart a program */
 #ifdef USE_RAMDISK
@@ -90,4 +97,14 @@ void restart() {
 
 	/* Initialize DRAM. */
 	init_ddr3();
+
+	/* Initialize Cache*/
+	init_cache();
+
+	/* Initialize CR0*/
+	init_CR0();
+
+	/* To use CS register*/
+	cpu.cs.cache_base = 0;
+	cpu.cs.cache_limit = 0xffffffff;
 }
