@@ -147,12 +147,13 @@ static int cmd_bt(char *args) {
 	return 0;
 }
 
+/* Add page-trans result*/
 static int cmd_page(char *args){
 	if(args == NULL) return 0;
 	lnaddr_t lnaddr;
 	sscanf(args, "%x", &lnaddr);
 	hwaddr_t hwaddr = page_translate(lnaddr, 1);
-	if(!(cpu.cr0.protect_enable || cpu.cr0.paging)) {
+	if(!(cpu.cr0.protect_enable && cpu.cr0.paging)) {
 		printf("Page Addr Transform Fail!\n");
 	}
 	else printf("Page-trans Result: 0x%x -> 0x%x\n", lnaddr, hwaddr);
