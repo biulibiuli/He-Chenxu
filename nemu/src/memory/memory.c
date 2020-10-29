@@ -8,7 +8,7 @@ uint32_t dram_read(hwaddr_t, size_t);
 void dram_write(hwaddr_t, size_t, uint32_t);
 lnaddr_t seg_translate(swaddr_t, size_t, uint8_t);
 void sreg_load(uint8_t);
-
+hwaddr_t page_translate(lnaddr_t, size_t);
 
 /* Memory accessing interfaces */
 
@@ -41,11 +41,13 @@ void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
 }
 
 uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
-	return hwaddr_read(addr, len);
+	hwaddr_t hwaddr = page_translate(addr, len); 
+	return hwaddr_read(hwaddr, len);
 }
 
 void lnaddr_write(lnaddr_t addr, size_t len, uint32_t data) {
-	hwaddr_write(addr, len, data);
+	hwaddr_t hwaddr = page_translate(addr, len);
+	hwaddr_write(hwaddr, len, data);
 }
 
 uint32_t swaddr_read(swaddr_t addr, size_t len, uint8_t sreg) {
@@ -86,4 +88,18 @@ void sreg_load(uint8_t sreg) {
 	cpu.sr[sreg].cache_limit = limit;
 	cpu.sr[sreg].cache_base = base;
 }
-
+hwaddr_t page_translate(lnaddr_t addr, size_t len) {
+	if(cpu.cr0.protect_enable && cpu.cr0.paging) {
+		PageDescriptor dir, page;
+		uint32_t dir_in_addr = addr >> 22;
+		uint32_t page_in_addr = ((addr >> 12) & 0x3ff);
+		uint32_t in_addr = addr & 0xfff;
+		dir.page_val = hwaddr_read((cpu.cr3.page_directory_base << 12) + (dir_in_addr << 2), 4);
+		Assert(dir.p, "Invalid page!"); 
+		page.page_val = hwaddr_read((dir.addr << 12) + (page_in_addr << 2), 4);
+		Assert(page.p, "Invalid page!"); 
+		return (page.addr << 12) + in_addr;
+	} else {
+		return addr;
+	}
+} 
