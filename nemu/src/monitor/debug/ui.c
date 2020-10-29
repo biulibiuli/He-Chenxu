@@ -159,6 +159,8 @@ static int cmd_page(char *args){
 	else printf("Page-trans Result: 0x%x -> 0x%x\n", lnaddr, hwaddr);
 	return 0;
 }
+
+
 static int cmd_c(char *args) {
 	cpu_exec(-1);
 	return 0;
@@ -187,7 +189,7 @@ static struct {
 	{ "w", "Set watchpoint", cmd_w },
 	{ "d", "Delete watchpoint", cmd_d },
 	{ "bt", "Display backtrace", cmd_bt },
-	{ "page", "Print page addr transform result", cmd_page}
+	{ "page", "Print page addr translation result", cmd_page}
 
 };
 

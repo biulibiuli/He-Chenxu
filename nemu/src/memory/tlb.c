@@ -35,4 +35,4 @@ void tlb_write(uint32_t tag, uint32_t page) {
 	tlb[i].tag = tag;
 	tlb[i].page = page;
 	return;
-} 
+}

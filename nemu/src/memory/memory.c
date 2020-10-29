@@ -9,7 +9,8 @@ uint32_t dram_read(hwaddr_t, size_t);
 void dram_write(hwaddr_t, size_t, uint32_t);
 lnaddr_t seg_translate(swaddr_t, size_t, uint8_t);
 void sreg_load(uint8_t);
-hwaddr_t page_translate(lnaddr_t, size_t);
+hwaddr_t page_translate(lnaddr_t, size_t); 
+
 
 /* Memory accessing interfaces */
 
@@ -42,11 +43,13 @@ void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
 }
 
 uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
+	/*page*/
 	hwaddr_t hwaddr = page_translate(addr, len); 
 	return hwaddr_read(hwaddr, len);
 }
 
 void lnaddr_write(lnaddr_t addr, size_t len, uint32_t data) {
+	/*page*/
 	hwaddr_t hwaddr = page_translate(addr, len);
 	hwaddr_write(hwaddr, len, data);
 }
@@ -56,7 +59,7 @@ uint32_t swaddr_read(swaddr_t addr, size_t len, uint8_t sreg) {
 	assert(len == 1 || len == 2 || len == 4);
 #endif
 	lnaddr_t lnaddr = seg_translate(addr,len,sreg);
-       // printf("addr: %d\n",lnaddr);
+	//printf("addr: %d\n",lnaddr);
 	return lnaddr_read(lnaddr, len);
 }
 
@@ -71,6 +74,7 @@ void swaddr_write(swaddr_t addr, size_t len, uint32_t data, uint8_t sreg) {
 /* seg function*/
 lnaddr_t seg_translate(swaddr_t addr, size_t len, uint8_t sreg) {
 	if (cpu.cr0.protect_enable == 1) {
+		//printf("Changed!\n");
 		Assert(addr+len < cpu.sr[sreg].cache_limit, "Segment Fault!");
 		return cpu.sr[sreg].cache_base + addr;
 	}
@@ -78,6 +82,7 @@ lnaddr_t seg_translate(swaddr_t addr, size_t len, uint8_t sreg) {
 }
 
 void sreg_load(uint8_t sreg) {
+	//printf("Used!\n");
 	uint32_t gd = cpu.gdtr.base_addr;
 	gd += cpu.sr[sreg].index << 3;
 	SegDescriptor sd;
@@ -89,18 +94,18 @@ void sreg_load(uint8_t sreg) {
 	cpu.sr[sreg].cache_limit = limit;
 	cpu.sr[sreg].cache_base = base;
 }
+
 /*page function*/
 hwaddr_t page_translate(lnaddr_t addr, size_t len) {
 	if(cpu.cr0.protect_enable && cpu.cr0.paging) {
-                hwaddr_t tmp_addr;
-	        if((tmp_addr = tlb_read(addr & 0xfffff000)) != -1)
-                return (tmp_addr << 12) + (addr & 0xfff);
+		hwaddr_t tmp_addr;
+		if((tmp_addr = tlb_read(addr & 0xfffff000)) != -1) return (tmp_addr << 12) + (addr & 0xfff);
 		PageDescriptor dir, page;
 		uint32_t dir_in_addr = addr >> 22;
 		uint32_t page_in_addr = ((addr >> 12) & 0x3ff);
 		uint32_t in_addr = addr & 0xfff;
 		dir.page_val = hwaddr_read((cpu.cr3.page_directory_base << 12) + (dir_in_addr << 2), 4);
-		Assert(dir.p, "Invalid page!"); 
+		Assert(dir.p, "Invalid page!"); //avoid error
 		page.page_val = hwaddr_read((dir.addr << 12) + (page_in_addr << 2), 4);
 		Assert(page.p, "Invalid page!"); //avoid error
 		tlb_write(addr & 0xfffff000, page.addr);
@@ -108,4 +113,5 @@ hwaddr_t page_translate(lnaddr_t addr, size_t len) {
 	} else {
 		return addr;
 	}
-} 
+}
+

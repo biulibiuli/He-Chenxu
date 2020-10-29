@@ -68,7 +68,6 @@ typedef struct {
 	};	
 } SegDescriptor;
 
-
 typedef struct {
 	union {
 		struct {
@@ -85,6 +84,7 @@ typedef struct {
 		uint32_t page_val;
 	};
 }PageDescriptor;
+
 typedef struct {
      union{
         union {

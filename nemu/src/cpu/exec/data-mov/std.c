@@ -2,4 +2,4 @@
 
 #define DATA_BYTE 1
 #include "std-template.h"
-#undef DATA_BYTE 
+#undef DATA_BYTE

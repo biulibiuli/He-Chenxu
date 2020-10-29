@@ -7,4 +7,4 @@ make_helper(std) {
 	return 1;
 }
 
-#include "cpu/exec/template-end.h" 
+#include "cpu/exec/template-end.h"
