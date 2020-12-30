@@ -9,6 +9,8 @@
 #include "data-mov/leave.h"
 #include "data-mov/mov-sreg.h"
 
+#include "data-mov/lidt.h"
+
 #include "arith/cmp.h"
 #include "arith/dec.h"
 #include "arith/inc.h"
@@ -33,6 +35,7 @@
 #include "logic/test.h"
 #include "logic/setcc.h"
 
+
 #include "control/call.h"
 #include "control/ret.h"
 #include "control/jcc.h"
@@ -49,5 +52,5 @@
 #include "misc/misc.h"
 
 #include "special/special.h"
-
+#include "intr/int.h"
 #include "system/system.h"
