@@ -52,5 +52,10 @@
 #include "misc/misc.h"
 
 #include "special/special.h"
-#include "intr/int.h"
+
 #include "system/system.h"
+#include "intr/int.h"
+#include "intr/pusha.h"
+#include "intr/popa.h"
+#include "intr/iret.h"
+#include "intr/cli.h"
