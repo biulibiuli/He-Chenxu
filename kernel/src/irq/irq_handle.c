@@ -28,23 +28,24 @@ add_irq_handle(int irq, void (*func)(void) ) {
 	handles[irq] = ptr;
 }
 
+
 void irq_handle(TrapFrame *tf) {
 	/* TODO: Re-organize the `TrapFrame' structure in `include/irq.h'
 	 * to match the trap frame built during `do_irq.S'. Remove the
 	 * following line after you are done.
 	 */
-	//panic("Have you re-organized the `TrapFrame' structure?");
+	panic("Have you re-organized the `TrapFrame' structure?");
 
 	int irq = tf->irq;
-        
+	set_bp();
 	if (irq < 0) {
 		panic("Unhandled exception!");
 	} else if (irq == 0x80) {
+		set_bp();
 		do_syscall(tf);
 	} else if (irq < 1000) {
 		panic("Unexpected exception #%d at eip = %x", irq, tf->eip);
 	} else if (irq >= 1000) {
-                
 		int irq_id = irq - 1000;
 		assert(irq_id < NR_HARD_INTR);
 		struct IRQ_t *f = handles[irq_id];
@@ -55,4 +56,5 @@ void irq_handle(TrapFrame *tf) {
 		}
 	}
 }
+
 
