@@ -39,4 +39,3 @@ asm_do_irq:
 	popal
 	addl $8, %esp
 	iret
-

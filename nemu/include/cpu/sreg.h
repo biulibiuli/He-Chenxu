@@ -23,6 +23,7 @@ typedef struct SegmentSelector {
 		uint32_t soft_use			:1;
 	};
 } SegSel;
+
 typedef struct {
 	union {
 		struct {

@@ -8,7 +8,6 @@
 #include "data-mov/cltd.h"
 #include "data-mov/leave.h"
 #include "data-mov/mov-sreg.h"
-
 #include "data-mov/lidt.h"
 
 #include "arith/cmp.h"
@@ -35,7 +34,6 @@
 #include "logic/test.h"
 #include "logic/setcc.h"
 
-
 #include "control/call.h"
 #include "control/ret.h"
 #include "control/jcc.h"
@@ -56,8 +54,13 @@
 #include "special/special.h"
 
 #include "system/system.h"
+
 #include "intr/int.h"
 #include "intr/pusha.h"
 #include "intr/popa.h"
 #include "intr/iret.h"
 #include "intr/cli.h"
+
+#include "io/in.h"
+#include "io/out.h"
+#include "io/hlt.h"
