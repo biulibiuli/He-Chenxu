@@ -9,6 +9,7 @@
 #include "data-mov/leave.h"
 #include "data-mov/mov-sreg.h"
 #include "data-mov/lidt.h"
+#include "data-mov/cmovcc.h"
 
 #include "arith/cmp.h"
 #include "arith/dec.h"
@@ -33,6 +34,7 @@
 #include "logic/shrd.h"
 #include "logic/test.h"
 #include "logic/setcc.h"
+#include "logic/bt.h"
 
 #include "control/call.h"
 #include "control/ret.h"
@@ -40,6 +42,7 @@
 #include "control/jmp.h"
 #include "control/js.h"
 #include "control/jns.h"
+#include "control/jae.h"
 
 #include "string/rep.h"
 #include "string/movs.h"
@@ -64,3 +67,4 @@
 #include "io/in.h"
 #include "io/out.h"
 #include "io/hlt.h"
+#include "io/sti.h"
